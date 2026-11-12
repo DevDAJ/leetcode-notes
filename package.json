@@ -2,7 +2,7 @@
   "name": "leetcode-notes",
   "displayName": "LeetCode Notes",
   "description": "Create LeetCode problem folders with a write-up README, starter code and test cases, then run and submit from the editor.",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "publisher": "DevDAJ",
   "private": true,
   "engines": {
@@ -80,7 +80,12 @@
     "viewsWelcome": [
       {
         "view": "leetcodeNotes.problems",
-        "contents": "No problems in this folder yet.\n[New Problem](command:leetcodeNotes.newProblem)\nRunning tests and submitting need your LeetCode session.\n[Sign In](command:leetcodeNotes.signIn)"
+        "contents": "No problems in this folder yet.\n[New Problem](command:leetcodeNotes.newProblem)"
+      },
+      {
+        "view": "leetcodeNotes.problems",
+        "contents": "Running tests and submitting need your LeetCode session.\n[Sign In](command:leetcodeNotes.signIn)",
+        "when": "!leetcodeNotes.signedIn"
       }
     ],
     "menus": {

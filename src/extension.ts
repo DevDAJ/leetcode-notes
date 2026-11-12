@@ -181,7 +181,8 @@ async function newProblem() {
     await writeIfMissing(vscode.Uri.joinPath(folder, TESTCASES), async () => details.testcases.join("\n") + "\n");
   }
   problems.refresh();
-  await vscode.window.showTextDocument(readme, { preview: false });
+  // Show the write-up rendered, since a new problem is read before it is written about.
+  await vscode.commands.executeCommand("markdown.showPreview", readme);
 
   const snippet = await pickLanguage(details.snippets, "Language for the solution file (Esc to skip)");
   if (snippet) {

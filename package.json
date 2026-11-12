@@ -1,0 +1,166 @@
+{
+  "name": "leetcode-notes",
+  "displayName": "LeetCode Notes",
+  "description": "Create LeetCode problem folders with a write-up README, starter code and test cases, then run and submit from the editor.",
+  "version": "0.3.0",
+  "publisher": "DevDAJ",
+  "private": true,
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "commands": [
+      {
+        "command": "leetcodeNotes.newProblem",
+        "title": "LeetCode: New Problem",
+        "icon": "$(add)"
+      },
+      {
+        "command": "leetcodeNotes.runTests",
+        "title": "LeetCode: Run Tests",
+        "icon": "$(play)"
+      },
+      {
+        "command": "leetcodeNotes.submit",
+        "title": "LeetCode: Submit",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "leetcodeNotes.signIn",
+        "title": "LeetCode: Sign In",
+        "icon": "$(account)"
+      },
+      {
+        "command": "leetcodeNotes.signOut",
+        "title": "LeetCode: Sign Out"
+      },
+      {
+        "command": "leetcodeNotes.refresh",
+        "title": "LeetCode: Refresh Problems",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "leetcodeNotes.openOnLeetCode",
+        "title": "Open on LeetCode",
+        "icon": "$(link-external)"
+      }
+    ],
+    "configuration": {
+      "title": "LeetCode Notes",
+      "properties": {
+        "leetcodeNotes.templateFile": {
+          "type": "string",
+          "default": ".leetcode-template.md",
+          "description": "Path, relative to the workspace root, of a custom README template. Placeholders: {number}, {title}, {url}, {difficulty}, {topics}, {statement}. The built-in template is used when the file does not exist."
+        }
+      }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "leetcodeNotes",
+          "title": "LeetCode",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "leetcodeNotes": [
+        {
+          "id": "leetcodeNotes.problems",
+          "name": "Problems"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "leetcodeNotes.problems",
+        "contents": "No problems in this folder yet.\n[New Problem](command:leetcodeNotes.newProblem)\nRunning tests and submitting need your LeetCode session.\n[Sign In](command:leetcodeNotes.signIn)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "leetcodeNotes.newProblem",
+          "when": "view == leetcodeNotes.problems",
+          "group": "navigation@1"
+        },
+        {
+          "command": "leetcodeNotes.refresh",
+          "when": "view == leetcodeNotes.problems",
+          "group": "navigation@2"
+        },
+        {
+          "command": "leetcodeNotes.signIn",
+          "when": "view == leetcodeNotes.problems && !leetcodeNotes.signedIn",
+          "group": "navigation@3"
+        },
+        {
+          "command": "leetcodeNotes.signOut",
+          "when": "view == leetcodeNotes.problems && leetcodeNotes.signedIn"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "leetcodeNotes.runTests",
+          "when": "view == leetcodeNotes.problems && viewItem == solution",
+          "group": "inline@1"
+        },
+        {
+          "command": "leetcodeNotes.submit",
+          "when": "view == leetcodeNotes.problems && viewItem == solution",
+          "group": "inline@2"
+        },
+        {
+          "command": "leetcodeNotes.openOnLeetCode",
+          "when": "view == leetcodeNotes.problems && viewItem == problem",
+          "group": "inline"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "leetcodeNotes.runTests",
+          "when": "resourceScheme == file && resourceDirname =~ /(^|\\W)\\d+-[\\w-]+$/ && resourceFilename != README.md && resourceFilename != testcases.txt",
+          "group": "navigation@1"
+        },
+        {
+          "command": "leetcodeNotes.submit",
+          "when": "resourceScheme == file && resourceDirname =~ /(^|\\W)\\d+-[\\w-]+$/ && resourceFilename != README.md && resourceFilename != testcases.txt",
+          "group": "navigation@2"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "leetcodeNotes.openOnLeetCode",
+          "when": "false"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p .",
+    "watch": "tsc -w -p .",
+    "package": "npm run compile && vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "1.90.0",
+    "@vscode/vsce": "^3.0.0",
+    "typescript": "^5.4.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DevDAJ/leetcode-notes.git"
+  },
+  "keywords": [
+    "leetcode",
+    "notes",
+    "algorithms"
+  ]
+}
